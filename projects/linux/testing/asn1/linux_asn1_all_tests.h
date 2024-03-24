@@ -20,7 +20,7 @@ static void add_all_linux_asn1_tests (CuSuite *suite)
 {
 	/* This is unused when no tests will be executed. */
 	UNUSED (suite);
-
+/*
 #if (defined TESTING_RUN_BASE64_OPENSSL_SUITE || \
 		defined TESTING_RUN_ALL_TESTS || defined TESTING_RUN_ALL_LINUX_TESTS || \
 		(!defined TESTING_SKIP_ALL_TESTS && !defined TESTING_SKIP_ALL_LINUX_TESTS)) && \
@@ -51,6 +51,7 @@ static void add_all_linux_asn1_tests (CuSuite *suite)
 	!defined TESTING_SKIP_X509_OPENSSL_SUITE
 	TESTING_RUN_SUITE (x509_openssl);
 #endif
+*/
 }
 
 

@@ -92,7 +92,7 @@ int receive_packet(struct cmd_channel *channel, struct cmd_packet *packet, int m
     packet->pkt_size = valread;
     packet->dest_addr = 0xDA;
 
-    //printf("Received: \n");
+    //printf("Received Packet \n");
     //print_packet_data(packet->data, packet->pkt_size);
 
     close(new_socket);
@@ -142,7 +142,7 @@ int send_packet(struct cmd_channel *channel, struct cmd_packet *packet) {
     }
 
     send(sock, packet->data, packet->pkt_size, 0);
-    //printf("Sent: \n");
+    //printf("Sent Packet \n");
     //print_packet_data(packet->data, packet->pkt_size);
     close(sock);
 

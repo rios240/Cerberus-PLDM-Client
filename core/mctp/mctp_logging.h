@@ -22,6 +22,7 @@ enum {
 	MCTP_LOGGING_MCTP_CONTROL_RSP_FAIL,			/**< Failure while processing MCTP control response message. */
 	MCTP_LOGGING_GET_EID_FAIL,					/**< Failed when processing a Get EID request. */
 	MCTP_LOGGING_RSP_TIMEOUT,					/**< Timed out while waiting for MCTP response. */
+	MCTP_LOGGING_MCTP_PLDM_RSP_FAIL,			/**< Failure while processing MCTP PLDM response message.*/
 	MCTP_LOGGING_MCTP_PLDM_REQ_FAIL,			/**< Failure while processing MCTP PLDM request message.*/
 };
 

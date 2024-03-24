@@ -4,7 +4,6 @@
 #include "testing.h"
 #include "platform_io.h"
 #include "pldm_fwup/pldm_fwup_interface.h"
-#include "pldm_fwup/pldm_fwup_mctp.h"
 #include "pldm_fwup/pldm_fwup_commands.h"
 #include "firmware_update.h"
 
@@ -30,17 +29,17 @@ static void pldm_fwup_test_idle_good_responses (CuTest *test) {
     status = process_and_receive_pldm_over_mctp(&mctp, &cmd_channel, fwup, process_and_respond_query_device_identifiers);
     CuAssertIntEquals(test, 0, status);
     CuAssertIntEquals(test, PLDM_FD_STATE_IDLE, fwup->current_fd_state);
-    CuAssertIntEquals(test, PLDM_SUCCESS, fwup->completion_code);
+    CuAssertIntEquals(test, PLDM_SUCCESS, fwup->current_completion_code);
 
-    status = process_and_receive_pldm_over_mctp(&mctp, &cmd_channel, fwup, process_and_response_get_firmware_parameters);
+    status = process_and_receive_pldm_over_mctp(&mctp, &cmd_channel, fwup, process_and_respond_get_firmware_parameters);
     CuAssertIntEquals(test, 0, status);
     CuAssertIntEquals(test, PLDM_FD_STATE_IDLE, fwup->current_fd_state);
-    CuAssertIntEquals(test, PLDM_SUCCESS, fwup->completion_code);
+    CuAssertIntEquals(test, PLDM_SUCCESS, fwup->current_completion_code);
 
     status = process_and_receive_pldm_over_mctp(&mctp, &cmd_channel, fwup,  process_and_response_request_update);
     CuAssertIntEquals(test, 0, status);
     CuAssertIntEquals(test, PLDM_FD_STATE_LEARN_COMPONENTS, fwup->current_fd_state);
-    CuAssertIntEquals(test, PLDM_SUCCESS, fwup->completion_code);
+    CuAssertIntEquals(test, PLDM_SUCCESS, fwup->current_completion_code);
 
     clean_up_and_reset_firmware_update(&mctp, fwup);
 
@@ -65,13 +64,13 @@ static void pldm_fwup_test_idle_retry_request_update (CuTest *test) {
     status = process_and_receive_pldm_over_mctp(&mctp, &cmd_channel, fwup,  process_and_response_request_update);
     CuAssertIntEquals(test, 0, status);
     CuAssertIntEquals(test, PLDM_FD_STATE_IDLE, fwup->current_fd_state);
-    CuAssertIntEquals(test, PLDM_FWUP_RETRY_REQUEST_UPDATE, fwup->completion_code);
+    CuAssertIntEquals(test, PLDM_FWUP_RETRY_REQUEST_UPDATE, fwup->current_completion_code);
 
     fwup->error_testing.retry_request_update = 0;
     status = process_and_receive_pldm_over_mctp(&mctp, &cmd_channel, fwup,  process_and_response_request_update);
     CuAssertIntEquals(test, 0, status);
     CuAssertIntEquals(test, PLDM_FD_STATE_LEARN_COMPONENTS, fwup->current_fd_state);
-    CuAssertIntEquals(test, PLDM_SUCCESS, fwup->completion_code);
+    CuAssertIntEquals(test, PLDM_SUCCESS, fwup->current_completion_code);
 
     clean_up_and_reset_firmware_update(&mctp, fwup);
 
@@ -97,7 +96,7 @@ static void pldm_fwup_test_idle_unable_to_initiate_update (CuTest *test) {
     status = process_and_receive_pldm_over_mctp(&mctp, &cmd_channel, fwup,  process_and_response_request_update);
     CuAssertIntEquals(test, 0, status);
     CuAssertIntEquals(test, PLDM_FD_STATE_IDLE, fwup->current_fd_state);
-    CuAssertIntEquals(test, PLDM_FWUP_UNABLE_TO_INITIATE_UPDATE, fwup->completion_code);
+    CuAssertIntEquals(test, PLDM_FWUP_UNABLE_TO_INITIATE_UPDATE, fwup->current_completion_code);
 
     clean_up_and_reset_firmware_update(&mctp, fwup);
 
